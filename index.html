@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>M5STAMP BLE 加速度ビューア（x,y,z）</title>
+  <link rel="stylesheet" href="./style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <main>
+    <h1>M5STAMP BLE 加速度ビューア（x,y,z）</h1>
+
+    <div class="controls">
+      <button id="connectBtn">接続（BLE）</button>
+      <button id="disconnectBtn" disabled>切断</button>
+      <label>表示点数
+        <input id="points" type="number" value="500" min="100" step="100" />
+      </label>
+      <button id="recalBtn">再キャリブレーション指示</button>
+      <button id="downloadBtn">CSVダウンロード</button>
+    </div>
+
+    <section class="status">
+      <div>状態: <span id="status">未接続</span></div>
+      <div>受信行数: <span id="lines">0</span></div>
+      <div>最新行: <span id="latest">---</span></div>
+    </section>
+
+    <section class="grid">
+      <div class="card">
+        <h2>数値</h2>
+        <pre id="values">ax: ---, ay: ---, az: ---</pre>
+      </div>
+      <div class="card">
+        <h2>グラフ（x,y,z）</h2>
+        <canvas id="accChart" height="240"></canvas>
+      </div>
+    </section>
+  </main>
+
+  <script src="./main.js"></script>
+</body>
+</html>
