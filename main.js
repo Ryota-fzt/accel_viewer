@@ -155,7 +155,7 @@ async function connectBLE() {
     // 1) デバイス選択（★ボタン押下イベントからのみ呼べる）
        device = await navigator.bluetooth.requestDevice({
        // ★ M5 側の名前に合わせる（例："M5STAMP-" 接頭辞）
-       filters: [{ namePrefix: 'M5STAMP' }],
+       filters: [{ namePrefix: 'M5' }],
        optionalServices: [NUS_SERVICE]   // 取得したいサービスは optional に指定
     });
 
@@ -300,4 +300,5 @@ downloadBtn.addEventListener('click', downloadCSV);
 // （必要に応じて）ページ離脱時に自動切断する例：
 // window.addEventListener('beforeunload', () => { if (connected) device?.gatt?.disconnect(); });
 ``
+
 
