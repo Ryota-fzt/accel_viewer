@@ -153,11 +153,11 @@ function parseLines(text) {
 async function connectBLE() {
   try {
     // 1) デバイス選択（★ボタン押下イベントからのみ呼べる）
-    device = await navigator.bluetooth.requestDevice({
-      filters: [{ services: [NUS_SERVICE] }], // ★ NUS サービスでフィルタ
-      optionalServices: [NUS_SERVICE]
+       device = await navigator.bluetooth.requestDevice({
+       // ★ M5 側の名前に合わせる（例："M5STAMP-" 接頭辞）
+       filters: [{ namePrefix: 'M5STAMP' }],
+       optionalServices: [NUS_SERVICE]   // 取得したいサービスは optional に指定
     });
-    device.addEventListener('gattserverdisconnected', onDisconnected);
 
     // 2) GATT接続
     server = await device.gatt.connect();
@@ -217,6 +217,10 @@ async function disconnectBLE() {
       await device.gatt.disconnect();
     }
   } finally {
+    
+    // ★ OS側の切断完了を少し待つ（再接続安定化）
+    await new Promise(r => setTimeout(r, 800));
+
     // 参照クリア
     device = null;
     server = null;
@@ -296,3 +300,4 @@ downloadBtn.addEventListener('click', downloadCSV);
 // （必要に応じて）ページ離脱時に自動切断する例：
 // window.addEventListener('beforeunload', () => { if (connected) device?.gatt?.disconnect(); });
 ``
+
