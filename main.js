@@ -317,7 +317,5 @@ downloadBtn.addEventListener('click', downloadCSV);
 
 // （必要に応じて）ページ離脱時に自動切断する例：
 // window.addEventListener('beforeunload', () => { if (connected) device?.gatt?.disconnect(); });
-``
 
-
-
+document.getElementById('debugScanBtn').addEventListener('click', debugScanAll);
