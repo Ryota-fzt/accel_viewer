@@ -150,6 +150,24 @@ function parseLines(text) {
  * 3) TX（Notify）と RX（Write）特性を取得
  * 4) TX 通知を start & イベントハンドラ登録
  */
+
+// ★テスト用：接続ボタンで呼ぶ一時コード
+async function debugScanAll() {
+  try {
+    const dev = await navigator.bluetooth.requestDevice({
+      acceptAllDevices: true,              // まずは何でも一覧に出す
+      optionalServices: [NUS_SERVICE]      // NUSへ後でアクセス
+    });
+    console.log('Picked:', dev.name, dev.id);
+  } catch (e) {
+    console.error('debugScanAll error:', e);
+  }
+}
+
+
+
+
+
 async function connectBLE() {
   try {
     // 1) デバイス選択（★ボタン押下イベントからのみ呼べる）
@@ -300,5 +318,6 @@ downloadBtn.addEventListener('click', downloadCSV);
 // （必要に応じて）ページ離脱時に自動切断する例：
 // window.addEventListener('beforeunload', () => { if (connected) device?.gatt?.disconnect(); });
 ``
+
 
 
