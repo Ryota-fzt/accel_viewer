@@ -152,28 +152,13 @@ function parseLines(text) {
  */
 
 // ★テスト用：接続ボタンで呼ぶ一時コード
-async function debugScanAll() {
-  try {
-    const dev = await navigator.bluetooth.requestDevice({
-      acceptAllDevices: true,              // まずは何でも一覧に出す
-      optionalServices: [NUS_SERVICE]      // NUSへ後でアクセス
-    });
-    console.log('Picked:', dev.name, dev.id);
-  } catch (e) {
-    console.error('debugScanAll error:', e);
-  }
-}
-
-
-
-
 
 async function connectBLE() {
   try {
     // 1) デバイス選択（★ボタン押下イベントからのみ呼べる）
        device = await navigator.bluetooth.requestDevice({
        // ★ M5 側の名前に合わせる（例："M5STAMP-" 接頭辞）
-       filters: [{ namePrefix: 'M5' }],
+       filters: [{ namePrefix: 'M5-' }],
        optionalServices: [NUS_SERVICE]   // 取得したいサービスは optional に指定
     });
 
@@ -319,3 +304,4 @@ downloadBtn.addEventListener('click', downloadCSV);
 // window.addEventListener('beforeunload', () => { if (connected) device?.gatt?.disconnect(); });
 
 document.getElementById('debugScanBtn').addEventListener('click', debugScanAll);
+
